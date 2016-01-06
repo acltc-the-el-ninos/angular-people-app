@@ -17,7 +17,13 @@
         name: inputName,
         bio: inputBio
       };
-      $scope.people.push(person);
+      $http.post('/api/v1/people.json', person).then(function(response) {
+        console.log(response);
+        $scope.people.push(person);
+      }, function(error) {
+        console.log(error);
+        $scope.errors = error.data.errors;
+      });
     };
 
     $scope.deletePerson = function(inputIndex) {
