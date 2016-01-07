@@ -21,10 +21,16 @@
       </div>
     </div>
 
-    <div ng-repeat="person in people">
+    <div>
+      <label>Name Filter:</label>
+      <input ng-model="nameFilter">
+    </div>
+    <button ng-click="sortBy('name')">Order by name</button>
+    <button ng-click="sortBy('bio')">Order by bio</button>
+    <div ng-repeat="person in people | filter: {name: nameFilter} | orderBy: sortAttribute : sortDescending">
       <h2 ng-click="toggleBio(person)">{{ person.name }}</h2>
       <p ng-class="{strike: !person.bioVisible}">{{ person.bio }}</p>
-      <a ng-click="deletePerson($index)" href="#">Delete</a>
+      <a ng-click="deletePerson(person)" href="#">Delete</a>
     </div>
   </div>
 </div>
